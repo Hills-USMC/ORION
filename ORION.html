@@ -1025,7 +1025,7 @@ const sq=SQ.map(m=>m.callsign+'('+(m.system||'?')+')').join(', ')||'None';
 const lk=SQ.find(m=>m.locked);
 const sys='You are ORION, AI copilot for No Man\\'s Sky. Tactical, concise, dry wit. Squad: '+sq+'. '+(lk?'Target lock: '+lk.callsign+'.':'')+'Known systems: '+DC.slice(0,5).map(d=>d.system).join(', ')+'. Stay in character.';
 H.push({role:'user',content:t});ty(true);
-try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':AK,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,system:sys,messages:H.slice(-8)})});const d=await r.json();ty(false);const rep=d.content?.[0]?.text||'Signal lost.';H.push({role:'assistant',content:rep});am('o',rep);}catch(e){ty(false);am('o','Failure: '+e.message);}
+try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':AK,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:500,system:sys,messages:H.slice(-8)})});const d=await r.json();ty(false);const rep=d.content?.[0]?.text||'Signal lost.';H.push({role:'assistant',content:rep});am('o',rep);}catch(e){ty(false);am('o','Failure: '+e.message);}
 }
 function iv(){const S=window.SpeechRecognition||window.webkitSpeechRecognition;if(!S)return;VR=new S();VR.continuous=false;VR.interimResults=false;VR.lang='en-US';VR.onresult=e=>{document.getElementById('ci').value=e.results[0][0].transcript;ps();sv();};VR.onerror=sv;VR.onend=sv;}
 function tv(){VL?sv():stv();}
@@ -1354,7 +1354,7 @@ Always respond as ORION. Never break character. Never say you're an AI language 
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 1000,
         system: systemPrompt,
         messages: chatHistory.slice(-10)
